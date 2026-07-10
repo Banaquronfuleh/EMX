@@ -4,12 +4,14 @@ import Contribute from './pages/Contribute'
 import Data from './pages/Data'
 import Explore from './pages/Explore'
 import Home from './pages/Home'
+import Landing from './pages/Landing'
 import Listen from './pages/Listen'
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/data" element={<Data />} />
       <Route path="/contribute" element={<Contribute />} />

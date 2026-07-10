@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export default function BackButton() {
   return (
     <Link
-      to="/"
+      to="/home"
       aria-label="Back home"
       className="fixed left-4 top-4 z-40 text-black transition hover:text-ember-500"
     >

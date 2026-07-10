@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { useState, type ReactNode } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import backgroundImage from '../assets/background_1.png'
 
@@ -32,6 +32,8 @@ function GlowLink({ to, children }: { to: string; children: ReactNode }) {
 }
 
 export default function Home() {
+  const [showEntryPrompt, setShowEntryPrompt] = useState(true)
+
   return (
     <main
       className="relative min-h-screen w-full bg-cover bg-center text-cream-50"
@@ -43,6 +45,47 @@ export default function Home() {
         className="absolute inset-0 bg-linear-to-r from-black/60 via-black/20 to-transparent"
         aria-hidden="true"
       />
+
+      <AnimatePresence>
+        {showEntryPrompt && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div
+              className="w-full max-w-sm border border-cream-100/30 bg-sage-900 px-8 py-10 text-center shadow-xl"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.2 }}
+            >
+              <h2 className="font-display text-2xl">Take a walkthrough?</h2>
+              <p className="mt-3 font-sans text-sm text-cream-200">
+                We can guide you through the Exchange, or you're welcome to explore on your own.
+              </p>
+              <div className="mt-8 flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowEntryPrompt(false)}
+                  className="bg-ember-400 px-6 py-3 font-sans text-sm uppercase tracking-[0.15em] text-sage-900 transition hover:bg-ember-300"
+                >
+                  Start walkthrough
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowEntryPrompt(false)}
+                  className="border border-cream-100/40 px-6 py-3 font-sans text-sm uppercase tracking-[0.15em] transition hover:border-ember-300 hover:text-ember-300"
+                >
+                  Dismiss &amp; explore solo
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="relative z-10 flex min-h-screen flex-col justify-between px-8 py-10 sm:px-12 lg:px-20">
         <nav className="flex justify-end gap-3 text-xs uppercase tracking-[0.2em]">
