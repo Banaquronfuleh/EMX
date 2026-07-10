@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "PowerShell(wsl --status 2>$null)",
+      "PowerShell(npm create vite@latest . -- --template react-ts)",
+      "PowerShell(npm create vite@latest temp-scaffold -- --template react-ts)",
+      "PowerShell(npm install)",
+      "PowerShell(npm install tailwindcss @tailwindcss/vite framer-motion react-router-dom)",
+      "PowerShell(npm run dev)",
+      "PowerShell(npx playwright --version 2>$null; \\(Get-Command npx\\).Source)",
+      "PowerShell(npx playwright install chromium --with-deps 2>&1)",
+      "PowerShell(node verify-home.mjs)",
+      "PowerShell(npm install -D playwright)",
+      "PowerShell(npm install -D playwright 2>&1)",
+      "PowerShell(node verify-listen.mjs)",
+      "PowerShell(Move-Item .\\\\rotary_dialhook.png .\\\\src\\\\assets\\\\rotary_dialhook.png -Force)",
+      "PowerShell(Move-Item .\\\\rotary_dialcircle.png .\\\\src\\\\assets\\\\rotary_dialcircle.png -Force)",
+      "PowerShell(node calibrate.mjs)",
+      "PowerShell(node calibrate-circle.mjs)",
+      "PowerShell(node verify-final.mjs)",
+      "PowerShell(Remove-Item .\\\\calibrate.mjs, .\\\\calibrate-circle.mjs, .\\\\calibrate-zoom.png, .\\\\calibrate-circle-only.png, .\\\\calibrate.png, .\\\\verify-final.mjs, .\\\\final-rest.png, .\\\\final-pulled.png, .\\\\final-returned.png -Force -ErrorAction SilentlyContinue; npm uninstall playwright; Get-ChildItem -Name | Where-Object { $_ -notmatch '^\\(node_modules|src|public|\\\\.claude|\\\\.gitignore|index\\\\.html|package|tsconfig|vite\\\\.config|eslint|README|prompt\\)' })",
+      "PowerShell(node verify-display.mjs)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\banaq\\OneDrive\\01_IDE\\02_IDE 2\\02_Solo Y\\03_Validated Delivery\\Frontend"
+    ]
+  }
+}

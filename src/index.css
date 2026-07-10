@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Hepta Slab", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-sage-50: #f4f6f1;
+  --color-sage-100: #e6ebde;
+  --color-sage-200: #cdd8bf;
+  --color-sage-300: #aebd9a;
+  --color-sage-400: #8fa379;
+  --color-sage-500: #74895f;
+  --color-sage-600: #5a6d49;
+  --color-sage-700: #46563a;
+  --color-sage-800: #38442f;
+  --color-sage-900: #2c3525;
+
+  --color-cream-50: #fffdf8;
+  --color-cream-100: #faf6ec;
+  --color-cream-200: #f3ecda;
+  --color-cream-300: #ebe0c4;
+  --color-cream-400: #ddccA4;
+
+  --color-ember-50: #fdeee7;
+  --color-ember-100: #f9d3c1;
+  --color-ember-200: #f3ac84;
+  --color-ember-300: #ec7f4d;
+  --color-ember-400: #e2572b;
+  --color-ember-500: #c9421b;
+  --color-ember-600: #a53417;
+  --color-ember-700: #7e2812;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-black font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  /* Tailwind's preflight forces `img { max-width: 100%; height: auto }`,
+     which squashes Leaflet's 256px tile images and breaks the map. */
+  .leaflet-container img {
+    max-width: none;
+    max-height: none;
+  }
+}

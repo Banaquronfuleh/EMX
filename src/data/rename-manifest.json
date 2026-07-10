@@ -1,0 +1,452 @@
+[
+  {
+    "originalFile": "243054__klankbeeld__seagulls-in-city-140719_00.wav",
+    "audioFile": "51505.wav",
+    "place": "St Katharine Docks",
+    "category": "Birdsong",
+    "dialCode": "51505",
+    "sourcePath": "recordings/243054__klankbeeld__seagulls-in-city-140719_00.wav",
+    "destPath": "Frontend/public/audio/51505.wav"
+  },
+  {
+    "originalFile": "259983__lwdickens__forest-ambience-crazed-chipmunk-and-loons-on-lake.wav",
+    "audioFile": "52737.wav",
+    "place": "Hickling Broad, Norfolk Broads",
+    "category": "Birdsong",
+    "dialCode": "52737",
+    "sourcePath": "recordings/259983__lwdickens__forest-ambience-crazed-chipmunk-and-loons-on-lake.wav",
+    "destPath": "Frontend/public/audio/52737.wav"
+  },
+  {
+    "originalFile": "779230__yannsauvin__birds-in-cage-in-clissold-park-london-day.wav",
+    "audioFile": "51561.wav",
+    "place": "Clissold Park, Stoke Newington",
+    "category": "Birdsong",
+    "dialCode": "51561",
+    "sourcePath": "recordings/779230__yannsauvin__birds-in-cage-in-clissold-park-london-day.wav",
+    "destPath": "Frontend/public/audio/51561.wav"
+  },
+  {
+    "originalFile": "798179__vizaion__park-day-birds-london-2oa-spatial-audio.wav",
+    "audioFile": "51479.wav",
+    "place": "Battersea Park",
+    "category": "Birdsong",
+    "dialCode": "51479",
+    "sourcePath": "recordings/798179__vizaion__park-day-birds-london-2oa-spatial-audio.wav",
+    "destPath": "Frontend/public/audio/51479.wav"
+  },
+  {
+    "originalFile": "800949__iscence__birds-at-hampstead-heath.wav",
+    "audioFile": "51560.wav",
+    "place": "Hampstead Heath",
+    "category": "Birdsong",
+    "dialCode": "51560",
+    "sourcePath": "recordings/800949__iscence__birds-at-hampstead-heath.wav",
+    "destPath": "Frontend/public/audio/51560.wav"
+  },
+  {
+    "originalFile": "835517__kanny100__blackbird_alarm_nk.wav",
+    "audioFile": "51584.wav",
+    "place": "A back garden, Walthamstow",
+    "category": "Birdsong",
+    "dialCode": "51584",
+    "sourcePath": "recordings/835517__kanny100__blackbird_alarm_nk.wav",
+    "destPath": "Frontend/public/audio/51584.wav"
+  },
+  {
+    "originalFile": "844954__taranliberation__undergrowth.wav",
+    "audioFile": "51650.wav",
+    "place": "Epping Forest",
+    "category": "Birdsong",
+    "dialCode": "51650",
+    "sourcePath": "recordings/844954__taranliberation__undergrowth.wav",
+    "destPath": "Frontend/public/audio/51650.wav"
+  },
+  {
+    "originalFile": "854512__klankbeeld__birds-wind-forest-naturpark-our-luxembourg-1113-am-260516_1194.flac",
+    "audioFile": "51651.flac",
+    "place": "Epping Forest",
+    "category": "Birdsong",
+    "dialCode": "51651",
+    "sourcePath": "recordings/854512__klankbeeld__birds-wind-forest-naturpark-our-luxembourg-1113-am-260516_1194.flac",
+    "destPath": "Frontend/public/audio/51651.flac"
+  },
+  {
+    "originalFile": "581779__theworldofsound__waves-and-seagulls.wav",
+    "audioFile": "50099.wav",
+    "place": "St Ives, Cornwall",
+    "category": "Birdsong",
+    "dialCode": "50099",
+    "sourcePath": "recordings/581779__theworldofsound__waves-and-seagulls.wav",
+    "destPath": "Frontend/public/audio/50099.wav"
+  },
+  {
+    "originalFile": "484252__graudio__hyde-park-serpentine.wav",
+    "audioFile": "51504.wav",
+    "place": "The Serpentine, Hyde Park",
+    "category": "Water",
+    "dialCode": "51504",
+    "sourcePath": "recordings/484252__graudio__hyde-park-serpentine.wav",
+    "destPath": "Frontend/public/audio/51504.wav"
+  },
+  {
+    "originalFile": "696686__loudernoises__babbling-brook-at-sentinel-dome.m4a",
+    "audioFile": "51558.m4a",
+    "place": "Hampstead Heath ponds",
+    "category": "Water",
+    "dialCode": "51558",
+    "sourcePath": "recordings/696686__loudernoises__babbling-brook-at-sentinel-dome.m4a",
+    "destPath": "Frontend/public/audio/51558.m4a"
+  },
+  {
+    "originalFile": "803672__cvltiv8r__fern-canyon-babbling-brook-in-the-redwoods-2.wav",
+    "audioFile": "51572.wav",
+    "place": "Highgate Wood",
+    "category": "Water",
+    "dialCode": "51572",
+    "sourcePath": "recordings/803672__cvltiv8r__fern-canyon-babbling-brook-in-the-redwoods-2.wav",
+    "destPath": "Frontend/public/audio/51572.wav"
+  },
+  {
+    "originalFile": "830482__pnwheeler__water-flowing-across-sculpted-granite-channel.flac",
+    "audioFile": "51535.flac",
+    "place": "Regent's Canal, Camden Lock",
+    "category": "Water",
+    "dialCode": "51535",
+    "sourcePath": "recordings/830482__pnwheeler__water-flowing-across-sculpted-granite-channel.flac",
+    "destPath": "Frontend/public/audio/51535.flac"
+  },
+  {
+    "originalFile": "833490__eskvy__small-waterfall-london.wav",
+    "audioFile": "51419.wav",
+    "place": "Crystal Palace Park",
+    "category": "Water",
+    "dialCode": "51419",
+    "sourcePath": "recordings/833490__eskvy__small-waterfall-london.wav",
+    "destPath": "Frontend/public/audio/51419.wav"
+  },
+  {
+    "originalFile": "855585__klankbeeld__waves-lapping-on-breakwater-sand-beach-and-wooden-boat-riverside-maas-bokhoven-netherlands-744-pm-250611_1126 (1).wav",
+    "audioFile": "51482.wav",
+    "place": "Thames foreshore, Greenwich",
+    "category": "Water",
+    "dialCode": "51482",
+    "sourcePath": "recordings/855585__klankbeeld__waves-lapping-on-breakwater-sand-beach-and-wooden-boat-riverside-maas-bokhoven-netherlands-744-pm-250611_1126 (1).wav",
+    "destPath": "Frontend/public/audio/51482.wav"
+  },
+  {
+    "originalFile": "855747__klankbeeld__sunday-may-riverside-maas-bokhoven-netherlands-759-am-260524_0114.flac",
+    "audioFile": "51483.flac",
+    "place": "Thames foreshore, Greenwich",
+    "category": "Water",
+    "dialCode": "51483",
+    "sourcePath": "recordings/855747__klankbeeld__sunday-may-riverside-maas-bokhoven-netherlands-759-am-260524_0114.flac",
+    "destPath": "Frontend/public/audio/51483.flac"
+  },
+  {
+    "originalFile": "165877__sonicport__stream6.wav",
+    "audioFile": "54504.wav",
+    "place": "Watendlath, Lake District",
+    "category": "Water",
+    "dialCode": "54504",
+    "sourcePath": "recordings/165877__sonicport__stream6.wav",
+    "destPath": "Frontend/public/audio/54504.wav"
+  },
+  {
+    "originalFile": "827530__yevgverh__ocean_coast_04_092025_0659am.wav",
+    "audioFile": "50100.wav",
+    "place": "St Ives, Cornwall",
+    "category": "Water",
+    "dialCode": "50100",
+    "sourcePath": "recordings/827530__yevgverh__ocean_coast_04_092025_0659am.wav",
+    "destPath": "Frontend/public/audio/50100.wav"
+  },
+  {
+    "originalFile": "135821__cybergenic__amazon-soft-to-harder-rain-with-some-thunder.aiff",
+    "audioFile": "51463.aiff",
+    "place": "Peckham Rye",
+    "category": "Weather",
+    "dialCode": "51463",
+    "sourcePath": "recordings/135821__cybergenic__amazon-soft-to-harder-rain-with-some-thunder.aiff",
+    "destPath": "Frontend/public/audio/51463.aiff"
+  },
+  {
+    "originalFile": "483910__mick-gibbs__seattle-thunder-storm-9-7-2019-1.wav",
+    "audioFile": "51476.wav",
+    "place": "Greenwich Park",
+    "category": "Weather",
+    "dialCode": "51476",
+    "sourcePath": "recordings/483910__mick-gibbs__seattle-thunder-storm-9-7-2019-1.wav",
+    "destPath": "Frontend/public/audio/51476.wav"
+  },
+  {
+    "originalFile": "640631__ec36power__wind-before-rain.mp3",
+    "audioFile": "51557.mp3",
+    "place": "Hackney Marshes",
+    "category": "Weather",
+    "dialCode": "51557",
+    "sourcePath": "recordings/640631__ec36power__wind-before-rain.mp3",
+    "destPath": "Frontend/public/audio/51557.mp3"
+  },
+  {
+    "originalFile": "685618__misternormmedia__hail-in-the-city.wav",
+    "audioFile": "51494.wav",
+    "place": "Elephant & Castle",
+    "category": "Weather",
+    "dialCode": "51494",
+    "sourcePath": "recordings/685618__misternormmedia__hail-in-the-city.wav",
+    "destPath": "Frontend/public/audio/51494.wav"
+  },
+  {
+    "originalFile": "211663__klankbeeld__city-wind-apartment-131224_01.flac",
+    "audioFile": "51474.flac",
+    "place": "A flat above New Cross",
+    "category": "Weather",
+    "dialCode": "51474",
+    "sourcePath": "recordings/211663__klankbeeld__city-wind-apartment-131224_01.flac",
+    "destPath": "Frontend/public/audio/51474.flac"
+  },
+  {
+    "originalFile": "751933__klankbeeld__thunder-in-city-436-pm-240521_0726.flac",
+    "audioFile": "51461.flac",
+    "place": "Brixton",
+    "category": "Weather",
+    "dialCode": "51461",
+    "sourcePath": "recordings/751933__klankbeeld__thunder-in-city-436-pm-240521_0726.flac",
+    "destPath": "Frontend/public/audio/51461.flac"
+  },
+  {
+    "originalFile": "354025__stondi__thunder-during-rainstorm-1.wav",
+    "audioFile": "51539.wav",
+    "place": "Primrose Hill",
+    "category": "Weather",
+    "dialCode": "51539",
+    "sourcePath": "recordings/354025__stondi__thunder-during-rainstorm-1.wav",
+    "destPath": "Frontend/public/audio/51539.wav"
+  },
+  {
+    "originalFile": "732993__cask__huge-thunder-crack-xy.wav",
+    "audioFile": "51541.wav",
+    "place": "Primrose Hill",
+    "category": "Weather",
+    "dialCode": "51541",
+    "sourcePath": "recordings/732993__cask__huge-thunder-crack-xy.wav",
+    "destPath": "Frontend/public/audio/51541.wav"
+  },
+  {
+    "originalFile": "856487__tosha73__rain-the-sound-of-rain-on-the-outskirts-of-the-city.wav",
+    "audioFile": "51568.wav",
+    "place": "Walthamstow Marshes",
+    "category": "Weather",
+    "dialCode": "51568",
+    "sourcePath": "recordings/856487__tosha73__rain-the-sound-of-rain-on-the-outskirts-of-the-city.wav",
+    "destPath": "Frontend/public/audio/51568.wav"
+  },
+  {
+    "originalFile": "857691__yondertide__rain-downpour.m4a",
+    "audioFile": "51570.m4a",
+    "place": "Walthamstow Marshes",
+    "category": "Weather",
+    "dialCode": "51570",
+    "sourcePath": "recordings/857691__yondertide__rain-downpour.m4a",
+    "destPath": "Frontend/public/audio/51570.m4a"
+  },
+  {
+    "originalFile": "17144__lgarrett__lg-wind3.wav",
+    "audioFile": "55608.wav",
+    "place": "Bamburgh, Northumberland",
+    "category": "Weather",
+    "dialCode": "55608",
+    "sourcePath": "recordings/17144__lgarrett__lg-wind3.wav",
+    "destPath": "Frontend/public/audio/55608.wav"
+  },
+  {
+    "originalFile": "343448__rucisko__windy-weather.wav",
+    "audioFile": "54061.wav",
+    "place": "Malham, Yorkshire Dales",
+    "category": "Weather",
+    "dialCode": "54061",
+    "sourcePath": "recordings/343448__rucisko__windy-weather.wav",
+    "destPath": "Frontend/public/audio/54061.wav"
+  },
+  {
+    "originalFile": "403051__teadrinker__wind_forest_08_strong_l_01.wav",
+    "audioFile": "50865.wav",
+    "place": "New Forest, Hampshire",
+    "category": "Weather",
+    "dialCode": "50865",
+    "sourcePath": "recordings/403051__teadrinker__wind_forest_08_strong_l_01.wav",
+    "destPath": "Frontend/public/audio/50865.wav"
+  },
+  {
+    "originalFile": "515888__arnaud-coutancier__rainstorm-on-trees-birds.aiff",
+    "audioFile": "50572.aiff",
+    "place": "Dartmoor, Devon",
+    "category": "Weather",
+    "dialCode": "50572",
+    "sourcePath": "recordings/515888__arnaud-coutancier__rainstorm-on-trees-birds.aiff",
+    "destPath": "Frontend/public/audio/50572.aiff"
+  },
+  {
+    "originalFile": "522025__nimlos__three-mighty-thunders-in-row-200601.flac",
+    "audioFile": "53368.flac",
+    "place": "Edale, Peak District",
+    "category": "Weather",
+    "dialCode": "53368",
+    "sourcePath": "recordings/522025__nimlos__three-mighty-thunders-in-row-200601.flac",
+    "destPath": "Frontend/public/audio/53368.flac"
+  },
+  {
+    "originalFile": "263662__alcappuccino__london-street-drummers.mp3",
+    "audioFile": "51511.mp3",
+    "place": "Covent Garden",
+    "category": "Markets & Crowds",
+    "dialCode": "51511",
+    "sourcePath": "recordings/263662__alcappuccino__london-street-drummers.mp3",
+    "destPath": "Frontend/public/audio/51511.mp3"
+  },
+  {
+    "originalFile": "347029__ianaces__london-afternoon-street-sounds.mp3",
+    "audioFile": "51515.mp3",
+    "place": "Oxford Street",
+    "category": "Markets & Crowds",
+    "dialCode": "51515",
+    "sourcePath": "recordings/347029__ianaces__london-afternoon-street-sounds.mp3",
+    "destPath": "Frontend/public/audio/51515.mp3"
+  },
+  {
+    "originalFile": "749484__klankbeeld__harbor-in-summer-0106-pm-240730_0867.ogg",
+    "audioFile": "51506.ogg",
+    "place": "St Katharine Docks",
+    "category": "Markets & Crowds",
+    "dialCode": "51506",
+    "sourcePath": "recordings/749484__klankbeeld__harbor-in-summer-0106-pm-240730_0867.ogg",
+    "destPath": "Frontend/public/audio/51506.ogg"
+  },
+  {
+    "originalFile": "844712__sounds_from_palestine__urban-ambience-with-passing-cars-and-birds-al-tireh-ramallah-palestine.wav",
+    "audioFile": "51492.wav",
+    "place": "Walworth Road, Southwark",
+    "category": "Markets & Crowds",
+    "dialCode": "51492",
+    "sourcePath": "recordings/844712__sounds_from_palestine__urban-ambience-with-passing-cars-and-birds-al-tireh-ramallah-palestine.wav",
+    "destPath": "Frontend/public/audio/51492.wav"
+  },
+  {
+    "originalFile": "262690__toybox__london-tube-ride.aiff",
+    "audioFile": "51532.aiff",
+    "place": "Northern line",
+    "category": "Transit",
+    "dialCode": "51532",
+    "sourcePath": "recordings/262690__toybox__london-tube-ride.aiff",
+    "destPath": "Frontend/public/audio/51532.aiff"
+  },
+  {
+    "originalFile": "798000__alexmilsom__birds-trains.wav",
+    "audioFile": "51450.wav",
+    "place": "Wandsworth Common",
+    "category": "Transit",
+    "dialCode": "51450",
+    "sourcePath": "recordings/798000__alexmilsom__birds-trains.wav",
+    "destPath": "Frontend/public/audio/51450.wav"
+  },
+  {
+    "originalFile": "405503__mshahen__rain_thunder_birds_cars.wav",
+    "audioFile": "51530.wav",
+    "place": "North Circular, Hanger Lane",
+    "category": "Transit",
+    "dialCode": "51530",
+    "sourcePath": "recordings/405503__mshahen__rain_thunder_birds_cars.wav",
+    "destPath": "Frontend/public/audio/51530.wav"
+  },
+  {
+    "originalFile": "846019__sounds_from_palestine__cedar-branch-percussive-texture-with-wind-and-distant-traffic.wav",
+    "audioFile": "51523.wav",
+    "place": "Wormwood Scrubs",
+    "category": "Transit",
+    "dialCode": "51523",
+    "sourcePath": "recordings/846019__sounds_from_palestine__cedar-branch-percussive-texture-with-wind-and-distant-traffic.wav",
+    "destPath": "Frontend/public/audio/51523.wav"
+  },
+  {
+    "originalFile": "129342__le_abbaye_noirlac__cricket-fly.aiff",
+    "audioFile": "51488.aiff",
+    "place": "Walworth allotments",
+    "category": "After Dark",
+    "dialCode": "51488",
+    "sourcePath": "recordings/129342__le_abbaye_noirlac__cricket-fly.aiff",
+    "destPath": "Frontend/public/audio/51488.aiff"
+  },
+  {
+    "originalFile": "348068__dobroide__20160616_night15.wav",
+    "audioFile": "51513.wav",
+    "place": "Soho",
+    "category": "After Dark",
+    "dialCode": "51513",
+    "sourcePath": "recordings/348068__dobroide__20160616_night15.wav",
+    "destPath": "Frontend/public/audio/51513.wav"
+  },
+  {
+    "originalFile": "32655__greysound__frogsandcrickets_excerptb_jma_24bit_48k.wav",
+    "audioFile": "52739.wav",
+    "place": "Hickling Broad, Norfolk Broads",
+    "category": "After Dark",
+    "dialCode": "52739",
+    "sourcePath": "recordings/32655__greysound__frogsandcrickets_excerptb_jma_24bit_48k.wav",
+    "destPath": "Frontend/public/audio/52739.wav"
+  },
+  {
+    "originalFile": "128845__greenmeat__banff-national-park.aiff",
+    "audioFile": "51178.aiff",
+    "place": "Banff National Park, Canada",
+    "category": "Trunk Calls",
+    "dialCode": "51178",
+    "sourcePath": "recordings/128845__greenmeat__banff-national-park.aiff",
+    "destPath": "Frontend/public/audio/51178.aiff"
+  },
+  {
+    "originalFile": "80081__daniele-salvati__tsukutsukuboshi-cicadas-kyoto.wav",
+    "audioFile": "35011.wav",
+    "place": "Kyoto, Japan",
+    "category": "Trunk Calls",
+    "dialCode": "35011",
+    "sourcePath": "recordings/80081__daniele-salvati__tsukutsukuboshi-cicadas-kyoto.wav",
+    "destPath": "Frontend/public/audio/35011.wav"
+  },
+  {
+    "originalFile": "504583__felixblume__village-in-the-mexican-desert-wadley.wav",
+    "audioFile": "23685.wav",
+    "place": "Wadley, Mexico",
+    "category": "Trunk Calls",
+    "dialCode": "23685",
+    "sourcePath": "recordings/504583__felixblume__village-in-the-mexican-desert-wadley.wav",
+    "destPath": "Frontend/public/audio/23685.wav"
+  },
+  {
+    "originalFile": "556988__enricoviets__arctic-breeeze-rig.wav",
+    "audioFile": "78223.wav",
+    "place": "Svalbard, Norway",
+    "category": "Trunk Calls",
+    "dialCode": "78223",
+    "sourcePath": "recordings/556988__enricoviets__arctic-breeeze-rig.wav",
+    "destPath": "Frontend/public/audio/78223.wav"
+  },
+  {
+    "originalFile": "253607__floating-tree__waves_washingthroughcoral.wav",
+    "audioFile": "41755.wav",
+    "place": "An atoll, Maldives",
+    "category": "Trunk Calls",
+    "dialCode": "41755",
+    "sourcePath": "recordings/253607__floating-tree__waves_washingthroughcoral.wav",
+    "destPath": "Frontend/public/audio/41755.wav"
+  },
+  {
+    "originalFile": "253607__floating-tree__waves_washingthroughcoral (1).wav",
+    "audioFile": "41758.wav",
+    "place": "An atoll, Maldives",
+    "category": "Trunk Calls",
+    "dialCode": "41758",
+    "sourcePath": "recordings/253607__floating-tree__waves_washingthroughcoral (1).wav",
+    "destPath": "Frontend/public/audio/41758.wav"
+  }
+]
