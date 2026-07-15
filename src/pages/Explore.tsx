@@ -6,6 +6,7 @@ import { phonebook, type PhonebookEntry } from '../data/phonebook'
 import { parseCoordinates } from '../utils/geo'
 import BackButton from '../components/BackButton'
 import PhonebookPanel from '../components/PhonebookPanel'
+import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
 const LONDON_CENTER: [number, number] = [51.5074, -0.1278]
 
@@ -15,6 +16,16 @@ const pinIcon = L.divIcon({
   iconSize: [10, 10],
   iconAnchor: [5, 5],
   popupAnchor: [0, -6],
+})
+
+// Hampstead Heath, Dawn Chorus (51560) gets a larger, ember-coloured pin so
+// it's easy to spot on the map, tagged for the walkthrough's spotlight too.
+const highlightedPinIcon = L.divIcon({
+  className: '',
+  html: '<span data-tour="explore-pin-51560" style="display:block;width:16px;height:16px;background:#e2572b;border:2px solid #ffffff;border-radius:9999px;box-shadow:0 0 0 4px rgba(226,87,43,0.35);"></span>',
+  iconSize: [16, 16],
+  iconAnchor: [8, 8],
+  popupAnchor: [0, -10],
 })
 
 type View = 'map' | 'phonebook'
@@ -27,6 +38,7 @@ const toggleButtonClass = (active: boolean) =>
   }`
 
 export default function Explore() {
+  const tour = useWalkthrough()
   const [view, setView] = useState<View>('map')
   const [playingId, setPlayingId] = useState<string | null>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
@@ -84,7 +96,12 @@ export default function Explore() {
               <Marker
                 key={entry.dialCode}
                 position={parseCoordinates(entry.coordinates)}
-                icon={pinIcon}
+                icon={entry.dialCode === '51560' ? highlightedPinIcon : pinIcon}
+                eventHandlers={
+                  entry.dialCode === '51560'
+                    ? { click: () => tour.advanceFrom('explore-map') }
+                    : undefined
+                }
               >
                 <Popup>
                   <p className="font-display text-base">{entry.title}</p>

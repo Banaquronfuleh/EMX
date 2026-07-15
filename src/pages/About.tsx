@@ -9,7 +9,7 @@ const PHRASES = [
 ]
 
 // Loop geometry: four phrases sit at the compass points of a circle, joined
-// by arcs that bow outward — the same trig used for the rotary dial, just
+// by arcs that bow outward, the same trig used for the rotary dial, just
 // laid out on a 0–100 viewBox so it scales with the container.
 const NODE_RADIUS = 40
 const ARC_RADIUS = 56
@@ -125,7 +125,7 @@ export default function About() {
                 ease: 'easeInOut',
               }}
             >
-              {/* soft white halo — masks the loop line passing behind the text */}
+              {/* soft white halo, masks the loop line passing behind the text */}
               <span
                 className="absolute inset-0 rounded-full"
                 style={{
@@ -153,7 +153,7 @@ export default function About() {
 
       <p className="max-w-lg text-black">
         As people lose everyday contact with the natural world, their innate
-        affinity for it fades — weakening the will to protect what remains,
+        affinity for it fades, weakening the will to protect what remains,
         and leaving even less nature to encounter. The cycle feeds itself.
       </p>
 
@@ -162,7 +162,7 @@ export default function About() {
           The Environmental Memory Exchange is a collective directory of the world's natural sounds.
         </p>
         <p className="mb-6 text-sm leading-relaxed text-black">
-          It began as a direct response to the extinction of experience — a term for how we slowly
+          It began as a direct response to the extinction of experience, a term for how we slowly
           lose our connection to nature as we spend more time in urban spaces and digital
           environments.
         </p>
@@ -183,8 +183,8 @@ export default function About() {
         <h2 className="mb-4 font-display text-xl text-black">How to Listen &amp; Contribute</h2>
         <p className="text-sm leading-relaxed text-black">
           Every recording in this directory was left by a stranger for a stranger. If you notice
-          interesting soundscapes in your area — whether it is a specific bird status, a weather
-          event, or a water current — you can record and share it to become part of the directory.
+          interesting soundscapes in your area, whether it is a specific bird status, a weather
+          event, or a water current, you can record and share it to become part of the directory.
         </p>
       </div>
     </main>

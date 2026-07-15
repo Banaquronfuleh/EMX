@@ -86,10 +86,6 @@ export default function Landing() {
         </motion.div>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 top-8 flex justify-center px-6 text-center sm:top-10">
-        <h1 className="font-display text-lg tracking-wide sm:text-xl">The Environmental Memory Exchange</h1>
-      </div>
-
       <AnimatePresence>
         {videoOpen && (
           <motion.div

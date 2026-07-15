@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import BackButton from '../components/BackButton'
 import PhonebookDock from '../components/PhonebookDock'
+import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
 // ─── constants ────────────────────────────────────────────────────────────────
 
@@ -64,6 +65,7 @@ function UploadContent({
       <AnimatePresence>
         {fileName && (
           <motion.button
+            data-tour="analyse-btn"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -246,7 +248,13 @@ function SplitFlapSlot({
 
 // ─── number assignment ────────────────────────────────────────────────────────
 
-function NumberAssignment({ digits }: { digits: number[] }) {
+function NumberAssignment({
+  digits,
+  onAssigned,
+}: {
+  digits: number[]
+  onAssigned?: () => void
+}) {
   const [chars, setChars] = useState<string[]>(COORD_DIGITS.map(String))
   const [showSlots, setShowSlots] = useState(8)
   const [lockedSlots, setLockedSlots] = useState<Set<number>>(new Set())
@@ -255,6 +263,8 @@ function NumberAssignment({ digits }: { digits: number[] }) {
   const lockedRef = useRef(new Set<number>())
   const digitsRef = useRef(digits)
   digitsRef.current = digits
+  const onAssignedRef = useRef(onAssigned)
+  onAssignedRef.current = onAssigned
 
   useEffect(() => {
     const allTimers: ReturnType<typeof setTimeout>[] = []
@@ -309,6 +319,7 @@ function NumberAssignment({ digits }: { digits: number[] }) {
               setTimeout(() => {
                 clearInterval(slowInterval)
                 setShowLabel(true)
+                onAssignedRef.current?.()
               }, 2800 + digitsRef.current.length * 600 + 700)
             )
           }, 1100)
@@ -324,6 +335,7 @@ function NumberAssignment({ digits }: { digits: number[] }) {
 
   return (
     <motion.div
+      data-tour="assigning-panel"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
@@ -373,7 +385,10 @@ function NumberAssignment({ digits }: { digits: number[] }) {
 
 type Step = 'upload' | 'processing' | 'assigning'
 
+const MOCK_FILE_NAME = 'Hampstead Heath, Dawn Chorus (mock).wav'
+
 export default function Contribute() {
+  const tour = useWalkthrough()
   const [step, setStep] = useState<Step>('upload')
   const dialDigits = DIAL_DIGITS
   const [isDragOver, setIsDragOver] = useState(false)
@@ -385,15 +400,21 @@ export default function Contribute() {
     if (file) setFileName(file.name)
   }, [])
 
+  function handleMockUpload() {
+    setFileName(MOCK_FILE_NAME)
+    tour.advanceFrom('contribute-add')
+  }
+
   return (
     <>
       <main className="relative flex min-h-screen flex-col bg-white px-8 py-8 lg:w-1/2 lg:px-12 lg:py-10">
         <BackButton />
 
-        {/* Content row — fills remaining page height */}
+        {/* Content row: fills remaining page height */}
         <div className="flex flex-1">
           {/* Green panel */}
           <div
+            data-tour="upload-zone"
             role={step === 'upload' ? 'button' : undefined}
             tabIndex={step === 'upload' ? 0 : undefined}
             onClick={
@@ -425,7 +446,7 @@ export default function Contribute() {
                 : undefined
             }
             className={[
-              'mx-auto flex w-full max-w-xl flex-col items-center justify-center border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember-400',
+              'mx-auto flex w-full max-w-xl flex-col items-center justify-center gap-6 border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ember-400',
               step === 'upload'
                 ? isDragOver
                   ? 'cursor-pointer border-dashed border-ember-400/60 bg-sage-300/50'
@@ -446,7 +467,10 @@ export default function Contribute() {
                 <UploadContent
                   key="upload"
                   fileName={fileName}
-                  onSubmit={() => setStep('processing')}
+                  onSubmit={() => {
+                    setStep('processing')
+                    tour.advanceFrom('contribute-analyse')
+                  }}
                 />
               )}
               {step === 'processing' && (
@@ -456,9 +480,27 @@ export default function Contribute() {
                 />
               )}
               {step === 'assigning' && (
-                <NumberAssignment key="assigning" digits={dialDigits} />
+                <NumberAssignment
+                  key="assigning"
+                  digits={dialDigits}
+                  onAssigned={() => tour.advanceFrom('contribute-assigning')}
+                />
               )}
             </AnimatePresence>
+
+            {step === 'upload' && (
+              <button
+                type="button"
+                data-tour="mock-upload-btn"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleMockUpload()
+                }}
+                className="border border-sage-400 px-6 py-2 text-xs uppercase tracking-[0.2em] text-sage-500 transition hover:border-ember-400 hover:text-ember-500"
+              >
+                Add mock data
+              </button>
+            )}
           </div>
         </div>
       </main>

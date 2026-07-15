@@ -1,12 +1,13 @@
-import { useState, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import backgroundImage from '../assets/background_1.png'
+import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
 const navLinks = [
-  { label: 'Contribute', to: '/contribute' },
-  { label: 'Listen', to: '/listen' },
-  { label: 'Explore', to: '/explore' },
+  { label: 'Contribute', to: '/contribute', tourId: 'nav-contribute' },
+  { label: 'Listen', to: '/listen', tourId: 'nav-listen' },
+  { label: 'Explore', to: '/explore', tourId: 'nav-explore' },
 ]
 
 const textGlow = {
@@ -14,9 +15,15 @@ const textGlow = {
   hover: { color: '#f3ac84', textShadow: '0 0 22px rgba(226, 87, 43, 0.75)' },
 }
 
-function GlowLink({ to, children }: { to: string; children: ReactNode }) {
+function GlowLink({ to, tourId, children }: { to: string; tourId?: string; children: ReactNode }) {
+  const tour = useWalkthrough()
   return (
-    <Link to={to} className="inline-block">
+    <Link
+      to={to}
+      data-tour={tourId}
+      onClick={() => tourId && tour.advanceIndexOnly(tourId)}
+      className="inline-block"
+    >
       <motion.span
         className="font-sans text-lg tracking-wide lowercase sm:text-xl"
         initial="rest"
@@ -32,7 +39,8 @@ function GlowLink({ to, children }: { to: string; children: ReactNode }) {
 }
 
 export default function Home() {
-  const [showEntryPrompt, setShowEntryPrompt] = useState(true)
+  const tour = useWalkthrough()
+  const showEntryPrompt = !tour.hasChosen
 
   return (
     <main
@@ -69,17 +77,17 @@ export default function Home() {
               <div className="mt-8 flex flex-col gap-3">
                 <button
                   type="button"
-                  onClick={() => setShowEntryPrompt(false)}
+                  onClick={tour.startTour}
                   className="bg-ember-400 px-6 py-3 font-sans text-sm uppercase tracking-[0.15em] text-sage-900 transition hover:bg-ember-300"
                 >
                   Start walkthrough
                 </button>
                 <button
                   type="button"
-                  onClick={() => setShowEntryPrompt(false)}
+                  onClick={tour.chooseSolo}
                   className="border border-cream-100/40 px-6 py-3 font-sans text-sm uppercase tracking-[0.15em] transition hover:border-ember-300 hover:text-ember-300"
                 >
-                  Dismiss &amp; explore solo
+                  Explore solo
                 </button>
               </div>
             </motion.div>
@@ -97,6 +105,8 @@ export default function Home() {
           </Link>
           <Link
             to="/data"
+            data-tour="nav-data"
+            onClick={() => tour.advanceIndexOnly('nav-data')}
             className="border border-cream-100/40 px-4 py-1.5 transition hover:border-ember-300 hover:text-ember-300"
           >
             Data
@@ -106,7 +116,7 @@ export default function Home() {
         <div className="flex flex-1 flex-col justify-center">
           <div className="flex flex-col items-start gap-5">
             {navLinks.map((link) => (
-              <GlowLink key={link.to} to={link.to}>
+              <GlowLink key={link.to} to={link.to} tourId={link.tourId}>
                 {link.label}
               </GlowLink>
             ))}
@@ -121,6 +131,18 @@ export default function Home() {
           Memory Exchange
         </h1>
       </div>
+
+      {/* Staff-only control for testing at the exhibition: re-triggers the
+          entry prompt without needing to clear localStorage by hand. */}
+      <button
+        type="button"
+        onClick={tour.resetWalkthrough}
+        aria-label="Reset walkthrough prompt"
+        title="Reset walkthrough prompt"
+        className="fixed bottom-3 left-3 z-40 font-sans text-[10px] uppercase tracking-[0.2em] text-cream-100/20 transition hover:text-cream-100/80"
+      >
+        &#8635; reset tour
+      </button>
     </main>
   )
 }

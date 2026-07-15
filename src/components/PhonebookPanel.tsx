@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { CATEGORY_ORDER, phonebook, type PhonebookEntry } from '../data/phonebook'
+import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
 function slugify(label: string) {
   return label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
@@ -21,6 +22,7 @@ function PhonebookRow({
   return (
     <div className={`border-b ${entry.isNew ? 'border-ember-200 bg-ember-50/40' : 'border-sage-300/60'}`}>
       <div
+        data-tour={entry.isNew ? 'phonebook-new-entry' : undefined}
         role="button"
         tabIndex={0}
         aria-pressed={isPlaying}
@@ -91,11 +93,14 @@ function PhonebookRow({
 }
 
 export default function PhonebookPanel({ className = '', showNewEntries = true }: { className?: string; showNewEntries?: boolean }) {
+  const tour = useWalkthrough()
   const [playingId, setPlayingId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   function handlePlay(entry: PhonebookEntry) {
+    if (entry.isNew) tour.advanceFrom('contribute-phonebook')
+
     const audio = audioRef.current
     if (!audio) return
 

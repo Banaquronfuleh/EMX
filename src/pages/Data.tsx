@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CATEGORY_ORDER, phonebook, type PhonebookEntry } from '../data/phonebook'
 import BackButton from '../components/BackButton'
+import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
 function AnalysisModal({ entry, onClose }: { entry: PhonebookEntry; onClose: () => void }) {
   return (
@@ -79,6 +80,7 @@ function slugify(label: string) {
 type SortKey = 'dialCode' | 'title' | 'place' | 'date' | 'category'
 
 export default function Data() {
+  const tour = useWalkthrough()
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const [sortKey, setSortKey] = useState<SortKey>('category')
   const [sortAsc, setSortAsc] = useState(true)
@@ -267,7 +269,11 @@ export default function Data() {
                   <div className="flex items-center justify-end gap-3">
                     <button
                       type="button"
-                      onClick={() => setAnalysisEntry(entry)}
+                      data-tour={entry.dialCode === '51560' ? 'data-row-51560' : undefined}
+                      onClick={() => {
+                        setAnalysisEntry(entry)
+                        if (entry.dialCode === '51560') tour.advanceFrom('data-analysis')
+                      }}
                       className="font-mono text-[10px] uppercase tracking-[0.2em] text-sage-500 transition hover:text-black"
                     >
                       ⊞ analysis
