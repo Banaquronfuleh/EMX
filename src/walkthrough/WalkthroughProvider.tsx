@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { WalkthroughContext, type WalkthroughValue } from './context'
 import { TOUR_STEPS } from './tourSteps'
 
@@ -15,6 +15,7 @@ function readChoice(): Choice {
 
 export function WalkthroughProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate()
+  const location = useLocation()
   const [choice, setChoice] = useState<Choice>(readChoice)
   const [active, setActive] = useState(false)
   const [stepIndex, setStepIndex] = useState(0)
@@ -39,11 +40,12 @@ export function WalkthroughProvider({ children }: { children: ReactNode }) {
         if (TOUR_STEPS[prev]?.id !== stepId) return prev
         const next = prev + 1
         if (next >= TOUR_STEPS.length) return prev
-        navigate(TOUR_STEPS[next].route)
+        const nextRoute = TOUR_STEPS[next].route
+        if (nextRoute !== location.pathname) navigate(nextRoute)
         return next
       })
     },
-    [navigate]
+    [navigate, location.pathname]
   )
 
   // For steps advanced by clicking a real <Link> (the nav-* steps): the
@@ -62,10 +64,11 @@ export function WalkthroughProvider({ children }: { children: ReactNode }) {
   const goBack = useCallback(() => {
     setStepIndex((prev) => {
       const next = Math.max(0, prev - 1)
-      if (next !== prev) navigate(TOUR_STEPS[next].route)
+      const nextRoute = TOUR_STEPS[next].route
+      if (next !== prev && nextRoute !== location.pathname) navigate(nextRoute)
       return next
     })
-  }, [navigate])
+  }, [navigate, location.pathname])
 
   const skipTour = useCallback(() => setActive(false), [])
 

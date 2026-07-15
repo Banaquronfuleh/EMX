@@ -15,90 +15,124 @@ export interface TourStep {
 // stop to tap into Listen, Explore, and Data, finding that same entry,
 // 51560, Hampstead Heath, Dawn Chorus, along the way. Every step is gated on
 // the visitor actually doing the thing it describes (there's no "Next" to
-// skip ahead) except the very last one.
+// skip ahead) except the very last one. Copy stays short: this runs on a
+// tablet where the prompt card can't cover the thing being demoed.
+//
+// Getting back to the homepage is never automatic — jumping the visitor
+// there mid-tour was disorienting. Instead a step highlights the back arrow
+// on the current page and waits for them to tap it themselves; the next
+// step then just waits on the homepage for the follow-up tap.
 export const TOUR_STEPS: TourStep[] = [
   {
     id: 'nav-contribute',
     route: '/home',
     target: 'nav-contribute',
     title: 'Add a recording',
-    body: "Let's start by contributing a sound to the archive. Tap Contribute.",
+    body: 'Tap Contribute to add a sound.',
   },
   {
     id: 'contribute-add',
     route: '/contribute',
     target: 'mock-upload-btn',
     title: 'Add a recording',
-    body: 'Anyone can drag a recording in from their device. For today, tap "Add mock data" to simulate one from Hampstead Heath.',
+    body: 'Tap "Add mock data" to simulate a Hampstead Heath recording.',
   },
   {
-    id: 'contribute-analyse',
+    id: 'contribute-upload',
     route: '/contribute',
-    target: 'analyse-btn',
-    title: 'Analyse the recording',
-    body: 'Tap "Analyse Recording" to process the sound.',
+    target: 'upload-btn',
+    title: 'Upload it',
+    body: 'Tap "Upload Recording" to send it in.',
   },
   {
-    id: 'contribute-assigning',
+    id: 'contribute-submitted',
     route: '/contribute',
-    target: 'assigning-panel',
-    title: 'Assigning a number',
-    body: 'The archive maps the location and locks in a phonebook number. Watch it lock in.',
+    target: 'upload-zone',
+    title: 'Queued for review',
+    body: "Numbers are assigned from each recording's coordinates.",
   },
   {
     id: 'contribute-phonebook',
     route: '/contribute',
     target: 'phonebook-new-entry',
     title: "It's in the Phonebook",
-    body: 'Your recording appears instantly under Birdsong, marked NEW: 51560, Hampstead Heath, Dawn Chorus. Tap it to hear it.',
+    body: "51560, Hampstead Heath. Tap it to hear it.",
+  },
+  {
+    id: 'contribute-back',
+    route: '/contribute',
+    target: 'back-button',
+    title: 'Head back',
+    body: 'Tap the arrow to return to the Exchange.',
   },
   {
     id: 'nav-listen',
     route: '/home',
     target: 'nav-listen',
-    title: 'Back to the Exchange',
-    body: "That same recording now lives across the whole archive. Let's go find it. Tap Listen.",
+    title: 'Find it again',
+    body: 'Tap Listen.',
   },
   {
     id: 'listen-dial',
     route: '/listen',
     target: 'rotary-dial',
     title: 'Dial it in',
-    body: 'Dial any five holes on the rotary phone. This demo always plays back the Hampstead Heath recording.',
+    body: 'Dial any five holes, it plays Hampstead Heath.',
     cardPlacement: 'top',
+  },
+  {
+    id: 'listen-back',
+    route: '/listen',
+    target: 'back-button',
+    title: 'Head back',
+    body: 'Tap the arrow to return to the Exchange.',
   },
   {
     id: 'nav-explore',
     route: '/home',
     target: 'nav-explore',
     title: 'Find it on the map',
-    body: 'It also shows up on the map. Tap Explore.',
+    body: 'Tap Explore.',
   },
   {
     id: 'explore-map',
     route: '/explore',
     target: 'explore-pin-51560',
     title: 'Find it on the map',
-    body: 'Here it is, Hampstead Heath. Tap the pin to see it.',
+    body: 'Tap the pin for Hampstead Heath.',
+  },
+  {
+    id: 'explore-back',
+    route: '/explore',
+    target: 'back-button',
+    title: 'Head back',
+    body: 'Tap the arrow to return to the Exchange.',
   },
   {
     id: 'nav-data',
     route: '/home',
     target: 'nav-data',
     title: 'View the data',
-    body: 'Every recording feeds real acoustic data. Tap Data.',
+    body: 'Tap Data.',
   },
   {
     id: 'data-analysis',
     route: '/data',
     target: 'data-row-51560',
     title: 'View the data',
-    body: 'Tap "analysis" on Hampstead Heath, Dawn Chorus to view its spectrogram.',
+    body: 'Tap "analysis" on Hampstead Heath to view its spectrogram.',
+  },
+  {
+    id: 'data-back',
+    route: '/data',
+    target: 'back-button',
+    title: 'Head back',
+    body: 'Tap the arrow to return to the Exchange.',
   },
   {
     id: 'finish',
     route: '/home',
     title: "That's the tour",
-    body: "You're free to explore the rest of the archive from here.",
+    body: 'Explore freely from here.',
   },
 ]

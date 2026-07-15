@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import backgroundImage from '../assets/background_1.png'
 import conceptThumbnail from '../assets/concept-thumbnail.jpg'
+import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
 function PlayIcon() {
   return (
@@ -35,15 +36,16 @@ const panelGlow = {
 }
 
 export default function Landing() {
+  const tour = useWalkthrough()
   const [videoOpen, setVideoOpen] = useState(false)
 
   return (
     <main className="relative min-h-screen w-full text-cream-50">
-      <div className="flex min-h-screen w-full flex-col md:flex-row">
+      <div className="grid min-h-screen w-full grid-cols-1 md:grid-cols-2">
         <motion.button
           type="button"
           onClick={() => setVideoOpen(true)}
-          className="group relative flex flex-1 flex-col items-center justify-center gap-4 bg-cover bg-center px-8 py-16 text-center"
+          className="group relative flex flex-col items-center justify-center gap-4 bg-cover bg-center px-8 py-16 text-center"
           style={{ backgroundImage: `url(${conceptThumbnail})` }}
           initial="rest"
           whileHover="active"
@@ -66,10 +68,11 @@ export default function Landing() {
           whileHover="active"
           whileTap="active"
           animate="rest"
-          className="relative flex flex-1"
+          className="relative flex"
         >
           <Link
             to="/home"
+            onClick={() => tour.resetWalkthrough()}
             className="group relative flex flex-1 flex-col items-center justify-center gap-4 bg-cover bg-center px-8 py-16 text-center"
             style={{ backgroundImage: `url(${backgroundImage})` }}
           >

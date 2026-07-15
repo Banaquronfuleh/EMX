@@ -3,17 +3,21 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useWalkthrough } from './useWalkthrough'
 import type { TourStep } from './tourSteps'
 
+// Polls on an interval rather than every animation frame: getBoundingClientRect
+// plus a full-viewport box-shadow used to run 60x/second, which was the main
+// source of jank on lower-powered tablets. A short CSS transition on the ring
+// below smooths over the gaps between samples so it still looks continuous.
+const POLL_MS = 120
+
 function useTargetRect(target?: string) {
   const [rect, setRect] = useState<DOMRect | null>(null)
   const lastKeyRef = useRef('')
 
   useEffect(() => {
-    let raf = 0
-
     if (!target) {
       lastKeyRef.current = ''
-      raf = requestAnimationFrame(() => setRect(null))
-      return () => cancelAnimationFrame(raf)
+      const id = window.setTimeout(() => setRect(null), 0)
+      return () => window.clearTimeout(id)
     }
 
     function measure() {
@@ -24,10 +28,11 @@ function useTargetRect(target?: string) {
         lastKeyRef.current = key
         setRect(next)
       }
-      raf = requestAnimationFrame(measure)
     }
-    raf = requestAnimationFrame(measure)
-    return () => cancelAnimationFrame(raf)
+
+    measure()
+    const id = window.setInterval(measure, POLL_MS)
+    return () => window.clearInterval(id)
   }, [target])
 
   return rect
@@ -36,17 +41,16 @@ function useTargetRect(target?: string) {
 function TourSpotlight({ rect }: { rect: DOMRect | null }) {
   if (!rect) return null
 
-  const pad = 8
+  const pad = 6
 
   return (
     <div
-      className="pointer-events-none fixed z-[65] rounded-lg border-2 border-ember-400 transition-all duration-200 ease-out"
+      className="pointer-events-none fixed z-[1010] rounded-md border-2 border-ember-400 shadow-[0_0_10px_2px_rgba(226,87,43,0.5)] transition-all duration-150 ease-out"
       style={{
         left: rect.left - pad,
         top: rect.top - pad,
         width: rect.width + pad * 2,
         height: rect.height + pad * 2,
-        boxShadow: '0 0 0 2000px rgba(10, 10, 10, 0.5), 0 0 24px rgba(226, 87, 43, 0.65)',
       }}
     />
   )
@@ -65,14 +69,14 @@ function ScrollHint({ rect }: { rect: DOMRect | null }) {
 
   return (
     <motion.div
-      className={`pointer-events-none fixed inset-x-0 z-[66] flex justify-center ${isAbove ? 'top-20' : 'bottom-24'}`}
+      className={`pointer-events-none fixed inset-x-0 z-[1011] flex justify-center ${isAbove ? 'top-16' : 'bottom-20'}`}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, y: isAbove ? [0, -6, 0] : [0, 6, 0] }}
+      animate={{ opacity: 1, y: isAbove ? [0, -5, 0] : [0, 5, 0] }}
       transition={{ y: { duration: 1.1, repeat: Infinity, ease: 'easeInOut' } }}
     >
-      <div className="flex items-center gap-2 bg-ember-400 px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-sage-900 shadow-lg">
+      <div className="flex items-center gap-1.5 bg-ember-400 px-3 py-1 font-sans text-[9px] uppercase tracking-[0.15em] text-sage-900 shadow-md">
         <span>{isAbove ? '↑' : '↓'}</span>
-        Scroll {isAbove ? 'up' : 'down'} to see it
+        Scroll {isAbove ? 'up' : 'down'}
       </div>
     </motion.div>
   )
@@ -81,15 +85,16 @@ function ScrollHint({ rect }: { rect: DOMRect | null }) {
 // Prompts land right next to the element the visitor needs to tap. When
 // there's nothing to point at (or it hasn't mounted yet on the new route),
 // or when a step opts into `cardPlacement: 'top'` because the target fills
-// most of the page, the card falls back to a fixed spot on screen.
-const MARGIN = 16
-const GAP = 18
+// most of the page, the card falls back to a fixed spot on screen. Kept
+// small and low-text on purpose: this runs on a tablet, and the card can't
+// be allowed to sit on top of the thing it's describing.
+const MARGIN = 12
+const GAP = 10
 
 function TourCard({
   step,
   rect,
   stepIndex,
-  totalSteps,
   isLast,
   onBack,
   onFinish,
@@ -98,7 +103,6 @@ function TourCard({
   step: TourStep
   rect: DOMRect | null
   stepIndex: number
-  totalSteps: number
   isLast: boolean
   onBack: () => void
   onFinish: () => void
@@ -138,57 +142,51 @@ function TourCard({
       ref={cardRef}
       className={
         positioned
-          ? 'fixed z-[70] w-[min(92vw,320px)]'
+          ? 'fixed z-[1020] w-[min(78vw,230px)]'
           : pinnedTop
-            ? 'fixed inset-x-0 top-3 z-[70] flex justify-center px-4 sm:top-5 sm:px-6'
-            : 'fixed inset-x-0 bottom-0 z-[70] flex justify-center px-4 pb-4 sm:bottom-6 sm:px-6'
+            ? 'fixed inset-x-0 top-2 z-[1020] flex justify-center px-3'
+            : 'fixed inset-x-0 bottom-0 z-[1020] flex justify-center px-3 pb-3'
       }
       style={positioned && pos ? { top: pos.top, left: pos.left } : undefined}
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 6 }}
-      transition={{ duration: 0.22 }}
+      exit={{ opacity: 0, y: 4 }}
+      transition={{ duration: 0.18 }}
     >
       <div
-        className={`${positioned ? 'w-full' : 'w-full max-w-md'} border border-cream-100/20 bg-sage-900 px-6 py-5 text-cream-50 shadow-2xl`}
+        className={`relative ${positioned ? 'w-full' : 'w-full max-w-[230px]'} border border-cream-100/20 bg-sage-900 px-3.5 py-3 text-cream-50 shadow-lg`}
       >
-        <div className="flex items-center justify-between gap-4">
-          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-cream-200/70">
-            Guided walkthrough &middot; {stepIndex + 1} / {totalSteps}
-          </p>
-          <button
-            type="button"
-            onClick={onSkip}
-            className="flex-none font-sans text-[10px] uppercase tracking-[0.2em] text-cream-200/60 transition hover:text-ember-300"
-          >
-            Skip tour
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={onSkip}
+          aria-label="Skip tour"
+          className="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center text-cream-200/50 transition hover:text-ember-300"
+        >
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" className="h-3 w-3">
+            <path d="M3 3l10 10M13 3L3 13" />
+          </svg>
+        </button>
 
-        <h3 className="mt-2 font-display text-xl">{step.title}</h3>
-        <p className="mt-1.5 font-sans text-sm leading-relaxed text-cream-200">{step.body}</p>
+        <h3 className="pr-5 font-display text-sm leading-snug">{step.title}</h3>
+        <p className="mt-1 pr-5 font-sans text-xs leading-snug text-cream-200">{step.body}</p>
 
-        <div className="mt-4 flex items-center justify-between gap-3">
+        <div className="mt-2.5 flex items-center justify-between">
           <button
             type="button"
             onClick={onBack}
             disabled={stepIndex === 0}
-            className="font-sans text-xs uppercase tracking-[0.2em] text-cream-200/50 transition hover:text-cream-100 disabled:opacity-0"
+            className="font-sans text-[10px] uppercase tracking-[0.12em] text-cream-200/50 transition hover:text-cream-100 disabled:opacity-0"
           >
             &larr; Back
           </button>
-          {isLast ? (
+          {isLast && (
             <button
               type="button"
               onClick={onFinish}
-              className="bg-ember-400 px-6 py-2 font-sans text-xs uppercase tracking-[0.15em] text-sage-900 transition hover:bg-ember-300"
+              className="bg-ember-400 px-3.5 py-1 font-sans text-[10px] uppercase tracking-[0.12em] text-sage-900 transition hover:bg-ember-300"
             >
               Finish
             </button>
-          ) : (
-            <p className="font-sans text-[10px] uppercase tracking-[0.15em] text-cream-200/40">
-              Complete this step to continue
-            </p>
           )}
         </div>
       </div>
@@ -216,7 +214,6 @@ export default function TourOverlay() {
           step={tour.currentStep}
           rect={rect}
           stepIndex={tour.stepIndex}
-          totalSteps={tour.totalSteps}
           isLast={isLast}
           onBack={tour.goBack}
           onFinish={tour.skipTour}

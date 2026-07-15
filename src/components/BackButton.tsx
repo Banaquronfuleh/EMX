@@ -1,11 +1,20 @@
 import { Link } from 'react-router-dom'
+import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
 export default function BackButton() {
+  const tour = useWalkthrough()
+
   return (
     <Link
       to="/home"
+      data-tour="back-button"
       aria-label="Back home"
-      className="fixed left-4 top-4 z-40 text-black transition hover:text-ember-500"
+      onClick={() => {
+        if (tour.active && tour.currentStep?.target === 'back-button') {
+          tour.advanceIndexOnly(tour.currentStep.id)
+        }
+      }}
+      className="fixed left-4 top-4 z-[1000] text-black transition hover:text-ember-500"
     >
       <svg
         viewBox="0 0 24 24"

@@ -4,22 +4,6 @@ import BackButton from '../components/BackButton'
 import PhonebookDock from '../components/PhonebookDock'
 import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
-// ─── constants ────────────────────────────────────────────────────────────────
-
-const STAGES = [
-  'Analysing your recording',
-  'Mapping acoustic signature',
-  'Registering to archive',
-]
-
-const STAGE_MS = 3000
-
-// Hampstead Heath 51.5607°N 0.1660°W → 8 significant digits used in slot phase 1
-const COORD_DIGITS = [5, 1, 5, 6, 0, 7, 1, 6]
-
-// Final assigned number for Hampstead Heath Dawn Chorus (51560)
-const DIAL_DIGITS = [5, 1, 5, 6, 0]
-
 // ─── upload content ───────────────────────────────────────────────────────────
 
 function UploadContent({
@@ -65,7 +49,7 @@ function UploadContent({
       <AnimatePresence>
         {fileName && (
           <motion.button
-            data-tour="analyse-btn"
+            data-tour="upload-btn"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -75,7 +59,7 @@ function UploadContent({
             }}
             className="border border-sage-400 px-8 py-2 text-sm uppercase tracking-[0.2em] text-sage-600 transition hover:border-ember-400 hover:text-ember-500"
           >
-            Analyse Recording
+            Upload Recording
           </motion.button>
         )}
       </AnimatePresence>
@@ -83,35 +67,21 @@ function UploadContent({
   )
 }
 
-// ─── processing panel ─────────────────────────────────────────────────────────
-
-type StageState = 'pending' | 'active' | 'done'
+// ─── uploading / submitted panels ─────────────────────────────────────────────
 
 function Spinner() {
   return (
     <motion.div
       animate={{ rotate: 360 }}
       transition={{ duration: 0.85, repeat: Infinity, ease: 'linear' }}
-      className="h-4 w-4 flex-none rounded-full border-[1.5px] border-sage-300 border-t-sage-700"
+      className="h-6 w-6 flex-none rounded-full border-2 border-sage-300 border-t-sage-700"
     />
   )
 }
 
-function Checkmark({
-  size = 16,
-  className = 'text-ember-500',
-}: {
-  size?: number
-  className?: string
-}) {
+function Checkmark({ size = 16 }: { size?: number }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 16 16"
-      fill="none"
-      className={`flex-none ${className}`}
-    >
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" className="flex-none text-ember-500">
       <motion.path
         d="M3 8l3.5 3.5L13 5"
         stroke="currentColor"
@@ -126,282 +96,77 @@ function Checkmark({
   )
 }
 
-function ProcessingPanel({ onComplete }: { onComplete: () => void }) {
-  const [stageStates, setStageStates] = useState<StageState[]>([
-    'active',
-    'pending',
-    'pending',
-  ])
-  const [allDone, setAllDone] = useState(false)
+const UPLOADING_MS = 1200
+
+function UploadingPanel({ onComplete }: { onComplete: () => void }) {
   const onCompleteRef = useRef(onComplete)
   onCompleteRef.current = onComplete
 
   useEffect(() => {
-    const timers: ReturnType<typeof setTimeout>[] = []
-
-    STAGES.forEach((_, i) => {
-      timers.push(
-        setTimeout(() => {
-          setStageStates((prev) => {
-            const next = [...prev] as StageState[]
-            next[i] = 'done'
-            if (i + 1 < STAGES.length) next[i + 1] = 'active'
-            return next
-          })
-        }, STAGE_MS * (i + 1))
-      )
-    })
-
-    timers.push(
-      setTimeout(() => setAllDone(true), STAGE_MS * STAGES.length + 300)
-    )
-    timers.push(
-      setTimeout(
-        () => onCompleteRef.current(),
-        STAGE_MS * STAGES.length + 1200
-      )
-    )
-
-    return () => timers.forEach(clearTimeout)
+    const t = setTimeout(() => onCompleteRef.current(), UPLOADING_MS)
+    return () => clearTimeout(t)
   }, [])
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.35 }}
-      className="flex flex-col gap-5 px-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className="flex flex-col items-center gap-4 px-10"
     >
-      {STAGES.map((label, i) => (
-        <div key={label} className="flex items-center gap-3">
-          <div className="flex h-5 w-5 flex-none items-center justify-center">
-            {stageStates[i] === 'active' && <Spinner />}
-            {stageStates[i] === 'done' && <Checkmark />}
-            {stageStates[i] === 'pending' && (
-              <div className="h-4 w-4 rounded-full border-[1.5px] border-sage-300/60" />
-            )}
-          </div>
-          <motion.span
-            className="text-sm"
-            animate={{
-              color:
-                stageStates[i] === 'pending'
-                  ? 'var(--color-sage-400)'
-                  : 'var(--color-sage-800)',
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {label}
-          </motion.span>
-        </div>
-      ))}
-
-      <AnimatePresence>
-        {allDone && (
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mt-2 flex items-center gap-2.5"
-          >
-            <Checkmark size={20} />
-            <span className="font-display text-xl text-ember-500">Approved</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Spinner />
+      <p className="font-sans text-xs uppercase tracking-[0.25em] text-sage-500">Uploading&hellip;</p>
     </motion.div>
   )
 }
 
-// ─── split-flap slot ──────────────────────────────────────────────────────────
-
-function SplitFlapSlot({
-  char,
-  isLocked,
-}: {
-  char: string
-  isLocked: boolean
-}) {
-  return (
-    <div
-      className={`relative flex h-16 w-12 items-center justify-center overflow-hidden bg-sage-900 shadow-md transition-shadow duration-300 ${
-        isLocked ? 'ring-1 ring-ember-400/70' : ''
-      }`}
-    >
-      <div className="pointer-events-none absolute inset-x-0 top-1/2 h-px bg-white/10" />
-      <AnimatePresence mode="popLayout">
-        <motion.span
-          key={char + (isLocked ? 'locked' : '')}
-          initial={{ y: -26, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 26, opacity: 0 }}
-          transition={{ duration: 0.07, ease: 'easeInOut' }}
-          className="relative select-none font-display text-2xl text-cream-50"
-        >
-          {char}
-        </motion.span>
-      </AnimatePresence>
-    </div>
-  )
-}
-
-// ─── number assignment ────────────────────────────────────────────────────────
-
-function NumberAssignment({
-  digits,
-  onAssigned,
-}: {
-  digits: number[]
-  onAssigned?: () => void
-}) {
-  const [chars, setChars] = useState<string[]>(COORD_DIGITS.map(String))
-  const [showSlots, setShowSlots] = useState(8)
-  const [lockedSlots, setLockedSlots] = useState<Set<number>>(new Set())
-  const [showLabel, setShowLabel] = useState(false)
-
-  const lockedRef = useRef(new Set<number>())
-  const digitsRef = useRef(digits)
-  digitsRef.current = digits
-  const onAssignedRef = useRef(onAssigned)
-  onAssignedRef.current = onAssigned
+function SubmittedPanel({ onShown }: { onShown?: () => void }) {
+  const onShownRef = useRef(onShown)
+  onShownRef.current = onShown
 
   useEffect(() => {
-    const allTimers: ReturnType<typeof setTimeout>[] = []
-    const allIntervals: ReturnType<typeof setInterval>[] = []
-
-    let frame = 0
-    const fastInterval = setInterval(() => {
-      setChars(
-        COORD_DIGITS.map((_, i) =>
-          String(COORD_DIGITS[(frame + i * 3) % COORD_DIGITS.length])
-        )
-      )
-      frame++
-    }, 100)
-    allIntervals.push(fastInterval)
-
-    allTimers.push(
-      setTimeout(() => {
-        clearInterval(fastInterval)
-
-        allTimers.push(
-          setTimeout(() => {
-            setShowSlots(5)
-            setChars(COORD_DIGITS.slice(0, 5).map(String))
-
-            const slowInterval = setInterval(() => {
-              setChars(
-                Array.from({ length: 5 }, (_, i) =>
-                  lockedRef.current.has(i)
-                    ? String(digitsRef.current[i])
-                    : String(Math.floor(Math.random() * 10))
-                )
-              )
-            }, 200)
-            allIntervals.push(slowInterval)
-
-            digitsRef.current.forEach((digit, i) => {
-              allTimers.push(
-                setTimeout(() => {
-                  lockedRef.current = new Set([...lockedRef.current, i])
-                  setLockedSlots(new Set(lockedRef.current))
-                  setChars((prev) => {
-                    const next = [...prev]
-                    next[i] = String(digit)
-                    return next
-                  })
-                }, 2800 + i * 600)
-              )
-            })
-
-            allTimers.push(
-              setTimeout(() => {
-                clearInterval(slowInterval)
-                setShowLabel(true)
-                onAssignedRef.current?.()
-              }, 2800 + digitsRef.current.length * 600 + 700)
-            )
-          }, 1100)
-        )
-      }, 2500)
-    )
-
-    return () => {
-      allIntervals.forEach(clearInterval)
-      allTimers.forEach(clearTimeout)
-    }
+    onShownRef.current?.()
   }, [])
 
   return (
     <motion.div
-      data-tour="assigning-panel"
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
-      className="flex flex-col items-center gap-5"
+      transition={{ duration: 0.3 }}
+      className="flex flex-col items-center gap-3 px-10 text-center"
     >
-      <p className="font-sans text-xs uppercase tracking-[0.25em] text-sage-500">
-        51.5607°N &ensp; 0.1660°W
-      </p>
-
-      <div className="flex gap-2">
-        <AnimatePresence>
-          {Array.from({ length: showSlots }).map((_, i) => (
-            <motion.div
-              key={`slot-${i}`}
-              layout
-              exit={{ width: 0, opacity: 0, marginRight: -8 }}
-              transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <SplitFlapSlot
-                char={chars[i] ?? '–'}
-                isLocked={lockedSlots.has(i)}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      <div className="h-5">
-        <AnimatePresence>
-          {showLabel && (
-            <motion.p
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="font-sans text-xs uppercase tracking-[0.25em] text-sage-500"
-            >
-              number assigned
-            </motion.p>
-          )}
-        </AnimatePresence>
-      </div>
+      <Checkmark size={24} />
+      <p className="font-display text-lg text-ember-500">Check back in a few minutes.</p>
     </motion.div>
   )
 }
 
 // ─── page ─────────────────────────────────────────────────────────────────────
 
-type Step = 'upload' | 'processing' | 'assigning'
+type Step = 'upload' | 'uploading' | 'submitted'
 
 const MOCK_FILE_NAME = 'Hampstead Heath, Dawn Chorus (mock).wav'
 
 export default function Contribute() {
   const tour = useWalkthrough()
   const [step, setStep] = useState<Step>('upload')
-  const dialDigits = DIAL_DIGITS
   const [isDragOver, setIsDragOver] = useState(false)
   const [fileName, setFileName] = useState<string | null>(null)
+  const [isMock, setIsMock] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleFiles = useCallback((files: FileList | null) => {
     const file = files?.[0]
-    if (file) setFileName(file.name)
+    if (file) {
+      setFileName(file.name)
+      setIsMock(false)
+    }
   }, [])
 
   function handleMockUpload() {
     setFileName(MOCK_FILE_NAME)
+    setIsMock(true)
     tour.advanceFrom('contribute-add')
   }
 
@@ -468,22 +233,18 @@ export default function Contribute() {
                   key="upload"
                   fileName={fileName}
                   onSubmit={() => {
-                    setStep('processing')
-                    tour.advanceFrom('contribute-analyse')
+                    setStep('uploading')
+                    tour.advanceFrom('contribute-upload')
                   }}
                 />
               )}
-              {step === 'processing' && (
-                <ProcessingPanel
-                  key="processing"
-                  onComplete={() => setStep('assigning')}
-                />
+              {step === 'uploading' && (
+                <UploadingPanel key="uploading" onComplete={() => setStep('submitted')} />
               )}
-              {step === 'assigning' && (
-                <NumberAssignment
-                  key="assigning"
-                  digits={dialDigits}
-                  onAssigned={() => tour.advanceFrom('contribute-assigning')}
+              {step === 'submitted' && (
+                <SubmittedPanel
+                  key="submitted"
+                  onShown={() => tour.advanceFrom('contribute-submitted')}
                 />
               )}
             </AnimatePresence>
@@ -505,7 +266,7 @@ export default function Contribute() {
         </div>
       </main>
 
-      <PhonebookDock showNewEntries={step === 'assigning'} />
+      <PhonebookDock showNewEntries={step === 'submitted' && isMock} />
     </>
   )
 }
