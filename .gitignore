@@ -9,7 +9,10 @@ lerna-debug.log*
 
 node_modules
 dist
-public/audio
+# Audio archive is too large for the repo (some source files run into the
+# hundreds of MB); only the exhibition demo recording is tracked.
+public/audio/*
+!public/audio/51560.wav
 dist-ssr
 *.local
 
