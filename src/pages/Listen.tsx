@@ -4,6 +4,7 @@ import dialHook from '../assets/rotary_dialhook.png'
 import dialCircle from '../assets/rotary_dialcircle.png'
 import BackButton from '../components/BackButton'
 import PhonebookDock from '../components/PhonebookDock'
+import { phonebook } from '../data/phonebook'
 import { useWalkthrough } from '../walkthrough/useWalkthrough'
 
 // Both source images share this exact canvas, so positions are calibrated
@@ -176,9 +177,21 @@ const HAMPSTEAD_DIAL_SEQUENCE = [5, 1, 5, 6, 0]
 export default function Listen() {
   const tour = useWalkthrough()
   const [dialedDigits, setDialedDigits] = useState<number[]>([])
+  const [isDialling, setIsDialling] = useState(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
   const isWalkthroughStep = tour.active && tour.currentStep?.id === 'listen-dial'
 
+  function stopAudio() {
+    const audio = audioRef.current
+    if (audio) {
+      audio.pause()
+      audio.currentTime = 0
+    }
+    setIsDialling(false)
+  }
+
   function handleDial(digit: number) {
+    stopAudio()
     setDialedDigits((prev) => {
       if (prev.length >= CODE_LENGTH) {
         return [isWalkthroughStep ? HAMPSTEAD_DIAL_SEQUENCE[0] : digit]
@@ -189,8 +202,19 @@ export default function Listen() {
   }
 
   useEffect(() => {
-    if (dialedDigits.join('') === '51560') {
+    if (dialedDigits.length !== CODE_LENGTH) return
+    const code = dialedDigits.join('')
+
+    if (code === '51560') {
       tour.advanceFrom('listen-dial')
+    }
+
+    const entry = phonebook.find((e) => e.dialCode === code)
+    const audio = audioRef.current
+    if (entry && audio) {
+      audio.src = entry.audioSrc
+      audio.play().catch(() => {})
+      setIsDialling(true)
     }
   }, [dialedDigits, tour])
 
@@ -198,6 +222,8 @@ export default function Listen() {
     <>
       <main className="relative flex h-dvh flex-col items-center justify-center gap-4 overflow-hidden bg-white px-8 py-6 text-black lg:w-1/2 lg:px-12">
         <BackButton />
+
+        <audio ref={audioRef} onEnded={() => setIsDialling(false)} className="hidden" />
 
         <div className="flex w-full min-h-0 flex-1 items-center justify-center">
           <RotaryDial onDial={handleDial} />
@@ -217,12 +243,19 @@ export default function Listen() {
           {dialedDigits.length > 0 && (
             <button
               type="button"
-              onClick={() => setDialedDigits([])}
+              onClick={() => {
+                stopAudio()
+                setDialedDigits([])
+              }}
               className="text-xs uppercase tracking-[0.2em] text-black transition hover:text-ember-500"
             >
               clear
             </button>
           )}
+        </div>
+
+        <div className="flex-none text-xs uppercase tracking-[0.2em] text-black">
+          {isDialling && <span className="animate-pulse">Dialling&hellip;</span>}
         </div>
       </main>
 

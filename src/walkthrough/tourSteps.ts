@@ -77,7 +77,7 @@ export const TOUR_STEPS: TourStep[] = [
     route: '/listen',
     target: 'rotary-dial',
     title: 'Dial it in',
-    body: 'Dial any five holes, it plays Hampstead Heath.',
+    body: 'Dial 51560, it plays Hampstead Heath.',
     cardPlacement: 'top',
   },
   {

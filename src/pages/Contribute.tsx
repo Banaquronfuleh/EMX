@@ -128,7 +128,7 @@ function UploadingPanel({ onComplete }: { onComplete: () => void }) {
       className="flex flex-col items-center gap-4 px-10"
     >
       <Spinner />
-      <p className="font-sans text-xs uppercase tracking-[0.25em] text-sage-500">Uploading&hellip;</p>
+      <p className="font-sans text-xs uppercase tracking-[0.25em] text-sage-500">Uploading and analysing&hellip;</p>
     </motion.div>
   )
 }
