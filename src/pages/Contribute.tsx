@@ -32,17 +32,29 @@ function UploadContent({
             {fileName}
           </motion.p>
         ) : (
-          <motion.p
+          <motion.div
             key="prompt"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-center text-sm leading-relaxed text-sage-500"
+            className="flex flex-col items-center gap-2 text-center"
           >
-            Drop your recording here
-            <br />
-            <span className="text-sage-400">or click to browse</span>
-          </motion.p>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="h-8 w-8 text-sage-400"
+            >
+              <path d="M12 15.5V4M12 4l-4 4M12 4l4 4" />
+              <path d="M4.5 15.5v3a2 2 0 002 2h11a2 2 0 002-2v-3" />
+            </svg>
+            <p className="font-display text-2xl leading-snug text-sage-800">Drop your recording here</p>
+            <p className="text-sm text-sage-400">or click to browse</p>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -250,17 +262,20 @@ export default function Contribute() {
             </AnimatePresence>
 
             {step === 'upload' && (
-              <button
-                type="button"
-                data-tour="mock-upload-btn"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleMockUpload()
-                }}
-                className="border border-sage-400 px-6 py-2 text-xs uppercase tracking-[0.2em] text-sage-500 transition hover:border-ember-400 hover:text-ember-500"
-              >
-                Add mock data
-              </button>
+              <div className="flex flex-col items-center gap-3">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-sage-400">or</p>
+                <button
+                  type="button"
+                  data-tour="mock-upload-btn"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleMockUpload()
+                  }}
+                  className="bg-ember-400 px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-sage-900 shadow-sm transition hover:bg-ember-300"
+                >
+                  Add mock data
+                </button>
+              </div>
             )}
           </div>
         </div>
